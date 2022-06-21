@@ -23,6 +23,15 @@
     -->
     id, name, gender, age, telphone, register_mode, third_party_id
   </sql>
+
+  <select id="selectByTelphone" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from user_info
+    where telphone = #{telphone,jdbcType=VARCHAR}
+  </select>
+
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--
       WARNING - @mbg.generated

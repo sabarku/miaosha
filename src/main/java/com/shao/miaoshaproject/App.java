@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 //@EnableAutoConfiguration 异曲同工之妙 ：将其进行托管并指定其为启动类
 @SpringBootApplication(scanBasePackages = {"com.shao.miaoshaproject"}) //将根目录下的包依次扫描，通过注解的方式发现Service，contriller等特定注解
 //做路径映射..
-@RestController
+//@RestController
 @MapperScan("com.shao.miaoshaproject.dao") //dao存放的地方要放在这个注解上
 public class App 
 {
