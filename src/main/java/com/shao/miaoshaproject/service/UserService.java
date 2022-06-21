@@ -1,9 +1,7 @@
 package com.shao.miaoshaproject.service;
 
 import com.shao.miaoshaproject.error.BusinessException;
-import com.shao.miaoshaproject.service.Model.UserModel;
-
-import org.springframework.stereotype.Service;
+import com.shao.miaoshaproject.service.model.UserModel;
 
 /**
  * Created by hzllb on 2018/11/11.

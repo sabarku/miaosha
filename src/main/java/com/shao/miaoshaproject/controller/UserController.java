@@ -4,10 +4,9 @@ import com.shao.miaoshaproject.controller.viewobject.UserVO;
 import com.shao.miaoshaproject.error.BusinessException;
 import com.shao.miaoshaproject.error.EmBusinessError;
 import com.shao.miaoshaproject.response.CommonReturnType;
-import com.shao.miaoshaproject.service.Model.UserModel;
+import com.shao.miaoshaproject.service.model.UserModel;
 import com.shao.miaoshaproject.service.UserService;
 
-import org.apache.catalina.User;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +23,6 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Random;
 import java.util.UUID;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by hzllb on 2018/11/11.

@@ -19,8 +19,8 @@
         </sqlMapGenerator>
         <!--生成Dao类存放位置-->
         <!-- 客户端代码，生成易于使用的针对Model对象和XML配置文件 的代码
-                type="ANNOTATEDMAPPER",生成Java Model 和基于注解的Mapper对象
-                type="MIXEDMAPPER",生成基于注解的Java Model 和相应的Mapper对象
+                type="ANNOTATEDMAPPER",生成Java model 和基于注解的Mapper对象
+                type="MIXEDMAPPER",生成基于注解的Java model 和相应的Mapper对象
                 type="XMLMAPPER",生成SQLMap XML文件和独立的Mapper接口
         -->
         <javaClientGenerator type="XMLMAPPER" targetPackage="com.shao.miaoshaproject.dao" targetProject="src/main/java">
@@ -29,10 +29,10 @@
 
         <!--生成对应表及类名-->
 
-        <table tableName="user_info"  domainObjectName="UserDO" enableCountByExample="false"
+        <table tableName="item"  domainObjectName="ItemDO" enableCountByExample="false"
         enableUpdateByExample="false" enableDeleteByExample="false"
         enableSelectByExample="false" selectByExampleQueryId="false"></table>
-        <table tableName="user_password"  domainObjectName="UserPasswordDO" enableCountByExample="false"
+        <table tableName="item_stock"  domainObjectName="ItemStockDO" enableCountByExample="false"
                enableUpdateByExample="false" enableDeleteByExample="false"
                enableSelectByExample="false" selectByExampleQueryId="false"></table>
 

@@ -7,20 +7,17 @@ import com.shao.miaoshaproject.dataobject.UserPasswordDO;
 
 import com.shao.miaoshaproject.error.BusinessException;
 import com.shao.miaoshaproject.error.EmBusinessError;
-import com.shao.miaoshaproject.service.Model.UserModel;
+import com.shao.miaoshaproject.service.model.UserModel;
 import com.shao.miaoshaproject.service.UserService;
 import com.shao.miaoshaproject.validator.ValidationResult;
 import com.shao.miaoshaproject.validator.ValidatorImpl;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by hzllb on 2018/11/11.

@@ -1,4 +1,4 @@
-package com.shao.miaoshaproject.service.Model;
+package com.shao.miaoshaproject.service.model;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
