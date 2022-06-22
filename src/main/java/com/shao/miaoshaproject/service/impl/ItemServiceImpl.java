@@ -11,6 +11,7 @@ import com.shao.miaoshaproject.error.EmBusinessError;
 
 import com.shao.miaoshaproject.service.ItemService;
 
+import com.shao.miaoshaproject.service.PromoService;
 import com.shao.miaoshaproject.service.model.ItemModel;
 import com.shao.miaoshaproject.service.model.PromoModel;
 import com.shao.miaoshaproject.validator.ValidationResult;
@@ -44,6 +45,8 @@ public class ItemServiceImpl implements ItemService {
     @Resource
     private ItemStockDOMapper itemStockDOMapper;
 
+    @Resource
+    private PromoService promoService;
 
     private ItemDO convertItemDOFromItemModel(ItemModel itemModel){
         if(itemModel == null){
@@ -122,6 +125,11 @@ public class ItemServiceImpl implements ItemService {
         //将dataobject->model
         ItemModel itemModel = convertModelFromDataObject(itemDO,itemStockDO);
 
+        //获取活动商品信息
+        PromoModel promoModel = promoService.getPromoByItemId(itemModel.getId());
+        if(promoModel != null && promoModel.getStatus().intValue() != 3){
+            itemModel.setPromoModel(promoModel);
+        }
 
         return itemModel;
     }

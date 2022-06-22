@@ -72,7 +72,7 @@ public class OrderController extends BaseController {
 
         //获取用户的登陆信息
         //UserModel userModel = (UserModel)httpServletRequest.getSession().getAttribute("LOGIN_USER");
-        OrderModel orderModel = orderService.createOrder(userModel.getId(),itemId,amount);
+        OrderModel orderModel = orderService.createOrder(userModel.getId(),itemId,promoId,amount);
 
 //        //判断库存是否已经售罄，若对应的售罄key存储则直接返回下单失败
 //        if(redisTemplate.hasKey("promo_item_stock_invalid_"+itemId)){

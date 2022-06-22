@@ -36,6 +36,16 @@ public class ItemModel implements Serializable {
     @NotBlank(message = "商品图片信息不能为空")
     private String imgUrl;
 
+    //使用聚合模型,如果promoModel不为空，则表示其拥有还未结束的秒杀活动
+    private PromoModel promoModel;
+
+    public PromoModel getPromoModel() {
+        return promoModel;
+    }
+
+    public void setPromoModel(PromoModel promoModel) {
+        this.promoModel = promoModel;
+    }
 
     public Integer getId() {
         return id;
