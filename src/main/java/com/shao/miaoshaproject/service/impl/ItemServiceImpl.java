@@ -126,6 +126,47 @@ public class ItemServiceImpl implements ItemService {
         return itemModel;
     }
 
+    /**
+     * 删减库存
+     * @param itemId
+     * @param amount
+     * @return
+     * @throws BusinessException
+     */
+    @Override
+    @Transactional
+    public boolean decreaseStock(Integer itemId, Integer amount) throws BusinessException {
+        int affectedRow =  itemStockDOMapper.decreaseStock(itemId,amount);
+
+        if(affectedRow > 0){
+            //更新库存成功
+//            boolean mqResult = mqProducer.asyncReduceStock(itemId,amount);
+//            if(!mqResult){
+//                redisTemplate.opsForValue().increment("promo_item_stock_"+itemId,amount.intValue());
+//                return false;
+//            }
+            return true;
+        }else if(affectedRow == 0){
+            return true;
+        }else{
+            //更新库存失败
+            return false;
+        }
+
+    }
+
+    /**
+     * 商品销量增加
+     * @param itemId
+     * @param amount
+     * @throws BusinessException
+     */
+    @Override
+    @Transactional
+    public void increaseSales(Integer itemId, Integer amount) throws BusinessException {
+        itemDOMapper.increaseSales(itemId,amount);
+    }
+
     private ItemModel convertModelFromDataObject(ItemDO itemDO, ItemStockDO itemStockDO){
         ItemModel itemModel = new ItemModel();
         BeanUtils.copyProperties(itemDO,itemModel);
