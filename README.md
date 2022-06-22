@@ -12,6 +12,7 @@
 ## 使用须知
 
 > 本项目主要用于学习分布式架构，使用jmeter做性能测试，提升自己对分布式、高并发等概念的深度理解
+![image](https://user-images.githubusercontent.com/33751638/175000800-953a3402-6a8d-41b5-aebc-704d27d2a300.png)
 
 ## 快速开始
 
