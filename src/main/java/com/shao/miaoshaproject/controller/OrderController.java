@@ -9,24 +9,12 @@ import com.shao.miaoshaproject.service.OrderService;
 
 import com.shao.miaoshaproject.service.model.OrderModel;
 import com.shao.miaoshaproject.service.model.UserModel;
-
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
-import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.awt.image.RenderedImage;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.util.Map;
-import java.util.concurrent.*;
 
 /**
  * Created by hzllb on 2018/11/18.
