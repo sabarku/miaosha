@@ -14,7 +14,7 @@ import java.io.IOException;
  * Time: 19:52
  *
  * @author sjp
- * Description: * 将String类型的DateTime序列化为json存入redis
+ * Description: * 将String类型的DateTime序列化为json存入redis。
  */
 public class JodaDateTimeJsonSerializer extends JsonSerializer<DateTime> {
     @Override

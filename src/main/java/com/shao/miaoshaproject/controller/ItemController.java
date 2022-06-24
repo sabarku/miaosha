@@ -65,8 +65,15 @@ public class ItemController extends BaseController {
     @RequestMapping(value = "/get",method = {RequestMethod.GET})
     @ResponseBody
     public CommonReturnType getItem(@RequestParam(name = "id")Integer id){
-        ItemModel itemModel = itemService.getItemById(id);
 
+        //从redis中取
+        ItemModel itemModel = (ItemModel) redisTemplate.opsForValue().get("item_"+id);
+        if(itemModel == null){
+            itemModel = itemService.getItemById(id);
+            redisTemplate.opsForValue().set("item_"+id,itemModel);
+            //设置过期时间，但数据更新了，这也要更新，或者是通过先写redis，在写数据库，多次更新，定期推送至数据库
+            redisTemplate.expire("item_"+id,10, TimeUnit.MINUTES);
+        }
         ItemVO itemVO = convertVOFromModel(itemModel);
 
         return CommonReturnType.create(itemVO);

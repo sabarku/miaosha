@@ -17,7 +17,8 @@ import java.io.IOException;
  * Time: 19:48
  *
  * @author sjp
- * Description:  * 将json类型的DateTime解析为DateTime类型（以String作为中间转变量）从redis中取出
+ *
+ * Description:  * 将json类型的DateTime解析为DateTime类型（以String作为中间转变量）从redis中取出。
  */
 public class JodaDateTimeJsonDeserializer extends JsonDeserializer<DateTime> {
     @Override

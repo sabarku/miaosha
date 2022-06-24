@@ -29,16 +29,17 @@ public class RedisConfig {
     public RedisTemplate redisTemplate(RedisConnectionFactory redisConnectionFactory){
         RedisTemplate redisTemplate = new RedisTemplate();
         redisTemplate.setConnectionFactory(redisConnectionFactory);
-
-        //解决key序列化问题：转String
+        //解决key序列化问题：转String.
         StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();
         redisTemplate.setKeySerializer(stringRedisSerializer);
 
-        //解决value序列化问题：转json
+        //解决value序列化问题：转json.
         Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(Object.class);
 
         ObjectMapper objectMapper = new ObjectMapper();
         SimpleModule simpleModule = new SimpleModule();
+
+        //对redis中存储的时间格式问题
         simpleModule.addSerializer(DateTime.class,new JodaDateTimeJsonSerializer());
         simpleModule.addDeserializer(DateTime.class,new JodaDateTimeJsonDeserializer());
 
