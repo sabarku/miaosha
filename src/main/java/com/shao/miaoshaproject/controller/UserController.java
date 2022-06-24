@@ -23,6 +23,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Random;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by hzllb on 2018/11/11.
@@ -57,16 +58,18 @@ public class UserController extends BaseController{
 
         //用户登陆服务,用来校验用户登陆是否合法
         UserModel userModel = userService.validateLogin(telphone,this.EncodeByMd5(password));
+
         //将登陆凭证加入到用户登陆成功的session内
-        //生成登录token,UUID
+        //生成登录token,UUID(唯一性)
         String uuidToken = UUID.randomUUID().toString();
         //优化
         uuidToken = uuidToken.replace("-","");
         //建立token与用户登录状态的连接,存储在redis中
-//        redisTemplate.opsForValue().set(uuidToken,userModel);
-//        redisTemplate.expire(uuidToken,1, TimeUnit.HOURS);
-        this.httpServletRequest.getSession().setAttribute("IS_LOGIN",true);//ctrl+shift +f 全局文本查找
-        this.httpServletRequest.getSession().setAttribute("LOGIN_USER",userModel);
+        redisTemplate.opsForValue().set(uuidToken,userModel);
+        redisTemplate.expire(uuidToken,1, TimeUnit.HOURS);
+
+        //this.httpServletRequest.getSession().setAttribute("IS_LOGIN",true);//ctrl+shift +f 全局文本查找
+        //this.httpServletRequest.getSession().setAttribute("LOGIN_USER",userModel);
 
         //将token返回给前端,下发token
         return CommonReturnType.create(uuidToken);
