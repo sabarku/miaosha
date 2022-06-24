@@ -31,6 +31,14 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
     </dependency>
+
+    <!-- https://mvnrepository.com/artifact/org.springframework/spring-beans -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-beans</artifactId>
+      <version>5.3.21</version>
+    </dependency>
+
     <dependency>
       <!-- springboot就有了对redis操作访问的能力 -->
       <groupId>org.springframework.boot</groupId>
@@ -45,7 +53,7 @@
     <dependency>
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
-      <version>8.0.26</version>
+      <version>8.0.28</version>
     </dependency>
     <dependency>
       <groupId>com.alibaba</groupId>
@@ -65,7 +73,7 @@
     <dependency>
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate-validator</artifactId>
-      <version>5.2.4.Final</version>
+      <version>6.0.19.Final</version>
     </dependency>
     <dependency>
       <groupId>joda-time</groupId>
@@ -125,7 +133,7 @@
             <dependency>
               <groupId>mysql</groupId>
               <artifactId>mysql-connector-java</artifactId>
-              <version>8.0.26</version>
+              <version>8.0.28</version>
             </dependency>
           </dependencies>
           <executions>
