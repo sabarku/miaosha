@@ -27,9 +27,17 @@
 
   <dependencies>
 
+
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+
+    <!-- 谷歌提供的guava实现本地cache，且guava重定义的java的table-->
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>18.0</version>
     </dependency>
 
     <!-- https://mvnrepository.com/artifact/org.springframework/spring-beans -->

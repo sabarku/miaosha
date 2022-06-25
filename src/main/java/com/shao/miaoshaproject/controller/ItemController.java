@@ -4,6 +4,7 @@ import com.shao.miaoshaproject.controller.viewobject.ItemVO;
 import com.shao.miaoshaproject.error.BusinessException;
 import com.shao.miaoshaproject.response.CommonReturnType;
 
+import com.shao.miaoshaproject.service.CacheService;
 import com.shao.miaoshaproject.service.ItemService;
 
 import com.shao.miaoshaproject.service.model.ItemModel;
@@ -32,6 +33,8 @@ public class ItemController extends BaseController {
     private ItemService itemService;
     @Autowired
     private RedisTemplate redisTemplate;
+    @Resource
+    private CacheService cacheService;
 
     //创建商品的controller
     @RequestMapping(value = "/create",method = {RequestMethod.POST},consumes={CONTENT_TYPE_FORMED})
@@ -65,14 +68,20 @@ public class ItemController extends BaseController {
     @RequestMapping(value = "/get",method = {RequestMethod.GET})
     @ResponseBody
     public CommonReturnType getItem(@RequestParam(name = "id")Integer id){
-
-        //从redis中取
-        ItemModel itemModel = (ItemModel) redisTemplate.opsForValue().get("item_"+id);
+        ItemModel itemModel  = null;
+        //先从本地缓存取
+        itemModel = (ItemModel) cacheService.getFromCommonCache("item_"+id);
         if(itemModel == null){
-            itemModel = itemService.getItemById(id);
-            redisTemplate.opsForValue().set("item_"+id,itemModel);
-            //设置过期时间，但数据更新了，这也要更新，或者是通过先写redis，在写数据库，多次更新，定期推送至数据库
-            redisTemplate.expire("item_"+id,10, TimeUnit.MINUTES);
+            //从redis中取
+            itemModel = (ItemModel) redisTemplate.opsForValue().get("item_"+id);
+            if(itemModel == null){
+                itemModel = itemService.getItemById(id);
+                redisTemplate.opsForValue().set("item_"+id,itemModel);
+                //设置过期时间，但数据更新了，这也要更新，或者是通过先写redis，在写数据库，多次更新，定期推送至数据库
+                redisTemplate.expire("item_"+id,10, TimeUnit.MINUTES);
+            }
+            //填充本地缓存
+            cacheService.setCommonCache("item_"+id,itemModel);
         }
         ItemVO itemVO = convertVOFromModel(itemModel);
 
