@@ -51,7 +51,9 @@ public class OrderServiceImpl implements OrderService {
     @Transactional
     public OrderModel createOrder(Integer userId, Integer itemId,Integer promoId,Integer amount) throws BusinessException {
         //1.校验下单状态,下单的商品是否存在，用户是否合法，购买数量是否正确
-        ItemModel itemModel = itemService.getItemById(itemId);
+        //ItemModel itemModel = itemService.getItemById(itemId);
+        //先查缓存，减少对数据库的依赖
+        ItemModel itemModel = itemService.getItemByIdInCache(itemId);
         if(itemModel == null){
             throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR,"商品信息不存在");
         }
@@ -66,7 +68,8 @@ public class OrderServiceImpl implements OrderService {
                 throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR,"活动信息还未开始");
             }
         }
-        UserModel userModel = userService.getUserById(userId);
+        // UserModel userModel = userService.getUserById(userId);
+        UserModel userModel = userService.getUserByIdInCache(userId);
         if(userModel == null){
             throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR,"用户信息不存在");
         }

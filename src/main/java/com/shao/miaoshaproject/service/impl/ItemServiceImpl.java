@@ -41,12 +41,14 @@ public class ItemServiceImpl implements ItemService {
     @Resource
     private ItemDOMapper itemDOMapper;
 
-
     @Resource
     private ItemStockDOMapper itemStockDOMapper;
 
     @Resource
     private PromoService promoService;
+
+    @Resource
+    private RedisTemplate redisTemplate;
 
     private ItemDO convertItemDOFromItemModel(ItemModel itemModel){
         if(itemModel == null){
@@ -131,6 +133,17 @@ public class ItemServiceImpl implements ItemService {
             itemModel.setPromoModel(promoModel);
         }
 
+        return itemModel;
+    }
+
+    @Override
+    public ItemModel getItemByIdInCache(Integer id) {
+        ItemModel itemModel = (ItemModel) redisTemplate.opsForValue().get("item_validata_" + id);
+        if(itemModel == null){
+            itemModel = this.getItemById(id);
+            redisTemplate.opsForValue().set("item_validata_"+id,itemModel);
+            redisTemplate.expire("item_validata_"+id,10, TimeUnit.MINUTES);
+        }
         return itemModel;
     }
 
