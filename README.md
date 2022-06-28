@@ -22,3 +22,15 @@
 ## 快速开始
 
 ### 下载最新的 miaosha 安装包   
+
+window
+
+```bash
+https://github.com/sabarku/hello-blog/releases/download/V1.0.0/miaosha-1.0-SNAPSHOT.jar
+```
+
+linux
+
+```bash
+wget https://github.com/sabarku/hello-blog/releases/download/V1.0.0/miaosha-1.0-SNAPSHOT.jar
+```
