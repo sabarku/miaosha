@@ -1,5 +1,9 @@
 <h1 align="center"><a href="https://github.com/sabarku/miaosha" target="_blank">miaosha</a></h1>
+
+<p align="center">
 <a href="https://www.oscs1024.com/project/oscs/sabarku/miaosha?ref=badge_small" alt="OSCS Status"><img src="https://www.oscs1024.com/platform/badge/sabarku/miaosha.svg?size=small"/></a>
+<a href="#"><img alt="JDK" src="https://img.shields.io/badge/JDK-1.8-yellow.svg?style=flat-square"/></a>
+</p>
 
 ## 简介
 

@@ -7,6 +7,7 @@ import com.shao.miaoshaproject.response.CommonReturnType;
 import com.shao.miaoshaproject.service.CacheService;
 import com.shao.miaoshaproject.service.ItemService;
 
+import com.shao.miaoshaproject.service.PromoService;
 import com.shao.miaoshaproject.service.model.ItemModel;
 import org.joda.time.format.DateTimeFormat;
 import org.springframework.beans.BeanUtils;
@@ -35,6 +36,8 @@ public class ItemController extends BaseController {
     private RedisTemplate redisTemplate;
     @Resource
     private CacheService cacheService;
+    @Resource
+    private PromoService promoService;
 
     //创建商品的controller
     @RequestMapping(value = "/create",method = {RequestMethod.POST},consumes={CONTENT_TYPE_FORMED})
@@ -89,6 +92,17 @@ public class ItemController extends BaseController {
 
     }
 
+    /**
+     * 活动发布，缓存预热
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "publishpromo", method = {RequestMethod.GET})
+    @ResponseBody
+    public CommonReturnType publishpromo(@RequestParam(name = "id") Integer id){
+        promoService.publishPromo(id);
+        return CommonReturnType.create(null);
+    }
 
     /**
      * 商品列表页面浏览

@@ -9,6 +9,7 @@ import com.shao.miaoshaproject.dataobject.ItemStockDO;
 import com.shao.miaoshaproject.error.BusinessException;
 import com.shao.miaoshaproject.error.EmBusinessError;
 
+import com.shao.miaoshaproject.mq.MqProducer;
 import com.shao.miaoshaproject.service.ItemService;
 
 import com.shao.miaoshaproject.service.PromoService;
@@ -49,6 +50,9 @@ public class ItemServiceImpl implements ItemService {
 
     @Resource
     private RedisTemplate redisTemplate;
+
+    @Resource
+    private MqProducer mqProducer;
 
     private ItemDO convertItemDOFromItemModel(ItemModel itemModel){
         if(itemModel == null){
@@ -157,20 +161,24 @@ public class ItemServiceImpl implements ItemService {
     @Override
     @Transactional
     public boolean decreaseStock(Integer itemId, Integer amount) throws BusinessException {
-        int affectedRow =  itemStockDOMapper.decreaseStock(itemId,amount);
+        //int affectedRow =  itemStockDOMapper.decreaseStock(itemId,amount);
+        //下单成功减缓存中库存（但会存在数据库与缓存数据不一致问题：可使用异步消息队列进行同步）
+        long affectedRow = redisTemplate.opsForValue().increment("promo_item_stock_"+itemId,amount.intValue()*-1);
 
         if(affectedRow > 0){
             //更新库存成功
-//            boolean mqResult = mqProducer.asyncReduceStock(itemId,amount);
-//            if(!mqResult){
-//                redisTemplate.opsForValue().increment("promo_item_stock_"+itemId,amount.intValue());
-//                return false;
-//            }
+           boolean mqResult = mqProducer.asyncReduceStock(itemId,amount);
+            if(!mqResult){
+                //更新失败则库存需要加回去
+                redisTemplate.opsForValue().increment("promo_item_stock_"+itemId,amount.intValue());
+                return false;
+            }
             return true;
         }else if(affectedRow == 0){
             return true;
         }else{
             //更新库存失败
+            redisTemplate.opsForValue().increment("promo_item_stock_"+itemId,amount.intValue());
             return false;
         }
 
